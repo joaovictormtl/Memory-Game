@@ -1,10 +1,11 @@
 html, body {
   height: 100%;
   width: 100%;
-padding:0px;
+  padding:0px;
   margin: 0px;
   background-color: #5441b0
 }
+
 
 .container {
   display: grid;
