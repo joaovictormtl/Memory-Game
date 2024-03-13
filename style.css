@@ -6,7 +6,6 @@ html, body {
   background-color: #5441b0
 }
 
-
 .container {
   display: grid;
   grid-template-areas: 
