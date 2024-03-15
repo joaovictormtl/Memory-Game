@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: sans-serif;
 }
 
 .center{
@@ -11,7 +12,8 @@
 }
 
 body {
-  background-color: #5441b0
+  background-color: #44358d;
+  transition: 0.5s;
 }
 
 .container{
@@ -34,8 +36,10 @@ body {
   height: 300px;
   cursor: pointer;
   border-radius: 10px;
-  transition: background 0.3s;
+  transition: 0.3s;
   box-shadow: 2px 2px 9px 0px rgba(0,0,0,0.75);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .item:hover,
@@ -43,9 +47,8 @@ body {
   background: #383838;
 }
 
-.efeitoItem{
-  transition: 0.6s;
-  transform: rotateY(-180deg);
+.itemOpacity{
+  opacity: 1;
 }
 
 .igualdade{
@@ -72,10 +75,11 @@ span{
 }
 
 .newGame, .score{
-  padding: 30px 0;
+  padding: 15px 0;
   color: white;
   font-family: sans-serif;
   background-color: #333;
+  box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.7);
 }
 
 .score .center{
@@ -84,15 +88,62 @@ span{
 }
 
 .title{
-  font-size: 2.5rem;
+  font-size: 2rem;
+}
+
+.btn-new{
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #8ad31d;
+  border-radius: 5px;
+  border: 0;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-new:hover{
+  box-shadow: 0px 0px 30px 0px rgba(138,211,29,1);  
 }
 
 #time{
-  position: absolute;
-  top: 50%;
+  z-index: 999;
+  width: 100px;
+  height: 100px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 0px;
   right: 30px;
   transform: translateY(-50%);
   font-size: 1.5rem;
+  background-color: rgba(2,2,2,0.5);
+  border-radius: 50%;
+}
+
+.msg-inicial{
+  width: 80%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.msg-box{
+  text-align: center;
+}
+
+.msg-title{
+  font-size: 6rem;
+}
+
+.msg-text{
+  margin: 40px 0;
 }
 
 @media screen and (max-width: 1000px){
@@ -124,6 +175,10 @@ span{
 
   span{
     font-size: 5rem;
+  }
+
+  .msg-title{
+    font-size: 4rem;
   }
 
   .btn{

@@ -6,6 +6,9 @@ decrem = "";
 container = getQ(".container .center");
 display = getQ('#time');
 btn = getQ(".btn");
+btnNew = getQ(".btn-new");
+body = getQ("body");
+msgInicial = getQ(".msg-inicial");
 let cardBefore = null;
 console.log(container);
 let durations = 60;
@@ -20,16 +23,50 @@ function setime2(t) {
 }
 
 function newGame() {
+  display.style.display = "flex";
+  btn.style.display = "none";
+  btnNew.style.display = "none";
+  body.style.backgroundColor = "#5441b0";
+  msgInicial.style.display = "none";
 
   emojis =
     ["🤐", "😅", "😡", "🤗", "😡", "🧐", "🤯", "😅", "🧐", "🤐", "🤗", "🤯"].sort(function() { return 0.5 - Math.random() });
-  container.innerHTML =
-    emojis.map((e) => {
-      return `<div class="item"><span>${e}</span></div>`
-    }).toString().replaceAll(",", "")
-  addEvent();
-  durations = 60;
-  decrem = setInterval(setime2, 1000);
+
+  const items = [];
+  emojis.forEach((e) => {
+    const div = document.createElement("div");
+    div.classList.add('item');
+    
+    const span = document.createElement("span");
+    span.innerText = e;
+    div.appendChild(span);
+
+    items.push(div);
+  });
+  
+  for(item of items){
+    container.appendChild(item);
+  }
+  
+  let tamanho = 0;
+  let intervalPreencher = setInterval(() =>{
+    
+    items[tamanho].classList.add("itemOpacity");
+    tamanho++;
+    if(tamanho >= items.length){
+      clearInterval(intervalPreencher);
+    }
+  }, 300);
+
+
+  setTimeout(()=>{
+    for(item of items){
+      item.style.pointerEvents = "auto";
+    }
+    durations = 60;
+    decrem = setInterval(setime2, 1000);
+    addEvent();
+  }, 320 * items.length);
 }
 
 function addEvent() {
@@ -46,10 +83,9 @@ function rmvEvent() {
   }
 }
 
-newGame();
+btnNew.addEventListener("click", newGame);
 
 async function clickCard() {
-  console.log(cardBefore);
   span = this.querySelector("span");
   this.style.transition = "transform 0.6s";
   this.style.transform = "rotateY(180deg)";
