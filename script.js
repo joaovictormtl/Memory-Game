@@ -92,7 +92,7 @@ function preencherItems(){
     durations = 60;
     decrem = setInterval(setime2, 1000);
     addEvent();
-  }, 170 * items.length);
+  }, 180 * items.length);
 }
 
 function addEvent() {
@@ -116,10 +116,9 @@ async function clickCard() {
   this.style.transition = "transform 0.6s";
   this.style.transform = "rotateY(180deg)";
 
-  setTimeout(() => {
-    span.style.display = "flex";
-    span.style.transform = "rotateY(180deg)";
-  }, 300)
+  setTimeout(()=>{
+    span.style.display = "flex"; 
+  }, 50)
 
   if (!cardBefore) {
     cardBefore = this;
