@@ -89,7 +89,7 @@ function preencherItems(){
     for(item of items){
       item.style.pointerEvents = "auto";
     }
-    durations = 15;
+    durations = 60;
     decrem = setInterval(setime2, 1000);
     addEvent();
   }, 170 * items.length);
