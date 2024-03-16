@@ -3,14 +3,13 @@ function getQ(p) {
 }
 
 decrem = "";
-container = getQ(".container .center");
+containerCenter = getQ(".container .center");
 display = getQ('#time');
 btn = getQ(".btn");
 btnNew = getQ(".btn-new");
 body = getQ("body");
 msgInicial = getQ(".msg-inicial");
 let cardBefore = null;
-console.log(container);
 let durations = 60;
 
 function setime2(t) {
@@ -23,6 +22,41 @@ function setime2(t) {
 }
 
 function newGame() {
+  
+  if(!containerCenter.innerHTML == ""){
+    btn.style.display = "none";
+    const itemsP = containerCenter.querySelectorAll('.item');
+
+    let tamanho = 11;
+    let intervalSumir = setInterval(() =>{
+
+      itemsP[tamanho].style.opacity = '0';
+      itemsP[tamanho].style.pointerEvents = "none";
+      
+      tamanho--;
+      
+      if(tamanho < 0){
+        clearInterval(intervalSumir);
+      }
+    }, 300);
+
+    setTimeout(()=>{
+      for(item of itemsP){
+        item.remove();
+      } 
+    }, 320 * itemsP.length);
+  }
+  
+  if(containerCenter.innerHTML == ""){
+    preencherItems();
+  } else{
+    setTimeout(()=>{
+      preencherItems();
+    }, 300 * 12);
+  }
+}
+
+function preencherItems(){
   display.style.display = "flex";
   btn.style.display = "none";
   btnNew.style.display = "none";
@@ -30,34 +64,33 @@ function newGame() {
   msgInicial.style.display = "none";
 
   emojis =
-    ["🤐", "😅", "😡", "🤗", "😡", "🧐", "🤯", "😅", "🧐", "🤐", "🤗", "🤯"].sort(function() { return 0.5 - Math.random() });
+    ["🤐", "😅", "😡", "🤗", "😡", "🧐", "🤯", "😅", "🧐", "🤐", "🤗", "🤯"].sort(function() { return 0.5 -      Math.random() });
 
   const items = [];
   emojis.forEach((e) => {
     const div = document.createElement("div");
     div.classList.add('item');
-    
+
     const span = document.createElement("span");
     span.innerText = e;
     div.appendChild(span);
 
     items.push(div);
   });
-  
+
   for(item of items){
-    container.appendChild(item);
+    containerCenter.appendChild(item);
   }
-  
+
   let tamanho = 0;
   let intervalPreencher = setInterval(() =>{
-    
-    items[tamanho].classList.add("itemOpacity");
+
+    items[tamanho].style.opacity = '1';
     tamanho++;
     if(tamanho >= items.length){
       clearInterval(intervalPreencher);
     }
   }, 300);
-
 
   setTimeout(()=>{
     for(item of items){
@@ -89,7 +122,6 @@ async function clickCard() {
   span = this.querySelector("span");
   this.style.transition = "transform 0.6s";
   this.style.transform = "rotateY(180deg)";
-  console.log(span)
 
   setTimeout(() => {
     span.style.display = "flex";
@@ -100,13 +132,11 @@ async function clickCard() {
     cardBefore = this;
     return
   } else if (span.innerHTML == cardBefore.querySelector("span").innerHTML) {
-    console.log("muda");
     this.style.border = "solid 2px tomato";
     cardBefore.style.border = "solid 2px tomato";
     cardBefore = null;
     chkWin();
   } else {
-    console.log(`nao mudou`);
     rmvEvent()
     setTimeout(() => {
       addStyle([this, cardBefore])
