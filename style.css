@@ -47,8 +47,9 @@ body {
   background: #383838;
 }
 
-.igualdade{
+.clicado{
   border: 2px solid tomato;
+  pointer-events: none;
 }
 
 .btn{
@@ -85,6 +86,7 @@ span{
 
 .title{
   font-size: 2rem;
+  font-weight: bold;
 }
 
 .btn-new{
@@ -140,6 +142,8 @@ span{
 
 .msg-text{
   margin: 40px 0;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 @media screen and (max-width: 1000px){
@@ -180,6 +184,14 @@ span{
   .btn{
     font-size: 1.8rem;
     padding: 15px 0;
+  }
+}
+
+@media screen and (max-width: 600px){
+  #time{
+    width: 75px;
+    height: 75px;
+    font-size: 1.3rem;
   }
 }
 
