@@ -3,6 +3,7 @@ function getQ(p) {
 }
 
 decrem = "";
+container = getQ(".container");
 containerCenter = getQ(".container .center");
 display = getQ('#time');
 btn = getQ(".btn");
@@ -10,16 +11,66 @@ btnNew = getQ(".btn-new");
 body = getQ("body");
 msgInicial = getQ(".msg-inicial");
 msgBox = getQ(".msg-box");
+difContainer = getQ(".dif-container");
+const btnsDif = difContainer.querySelectorAll(".dif-button");
+let emojis;
 let cardBefore;
 let durations;
 
-btnNew.addEventListener("click", newGame);
+btnNew.addEventListener("click", mostrarDificuldades);
+btn.addEventListener("click", newGame);
 
-function newGame() {
+function mostrarDificuldades(){
+  msgBox.style.animation = "animacaoFadeOut 0.3s forwards";
+
+  setTimeout(()=>{
+    msgBox.style.display = "none";
+    difContainer.style.display = "flex";
+
+    setTimeout(()=>{
+      difContainer.style.opacity = '1';  
+    }, 100);
+  }, 300);
+
+  focusBtn();
+}
+
+function focusBtn(){
+  btnsDif.forEach(button =>{
+    button.addEventListener('focus',()=>{
+      const dificuldade = button.querySelector(".dif-text").textContent;
+      emojis = definirDificuldade(dificuldade);
+      setTimeout(()=>{
+        difContainer.style.animation = 'animacaoFadeOut 0.3s forwards';
+        newGame(emojis);  
+      }, 300);
+    });
+  });
+}
+
+function definirDificuldade(dificuldade){
+  if(dificuldade == "fácil"){
+    localStorage.setItem('dificuldade', 'fácil');
+    return ["🤐", "😅", "😡", "🤗", "😡", "🧐", "🤯", "😅", "🧐", "🤐", "🤗", "🤯"].sort(function() { return 0.5 - Math.random() });
+  }
+  else if (dificuldade == "médio"){
+    localStorage.setItem('dificuldade', 'médio');
+    return ["😃", "😒", "😐", "😑", "😐", "😄", "😧", "😒", "😄", "😃", "😑", "😧"].sort(function() { return 0.5 - Math.random() });
+  }
+  else{
+    localStorage.setItem('dificuldade', 'difícil');
+    return ["🏙", "🏜", "🏕", "🏖", "🏕", "🏝", "🏞", "🏜", "🏝", "🏙", "🏖", "🏞"].sort(function() { return 0.5 - Math.random() });
+  }
+}
+
+function newGame(emojis) {
+  
+  container.style.display = "block";
   cardBefore = null;
   display.style.color = "#fff";
   
   if(!containerCenter.innerHTML == ""){
+    emojis = definirDificuldade(localStorage.getItem('dificuldade'));
     btn.style.display = "none";
     const itemsP = containerCenter.querySelectorAll('.item');
 
@@ -44,22 +95,19 @@ function newGame() {
   }
   
   if(containerCenter.innerHTML == ""){
-    preencherItems();
+    preencherItems(emojis);
   } else{
     setTimeout(()=>{
-      preencherItems();
+      preencherItems(emojis);
     }, 150 * 12);
   }
 }
 
-function preencherItems(){
+function preencherItems(emojis){
   body.style.backgroundColor = "#5441b0";
   display.style.display = "flex";
   btn.style.display = "none";
-
-  emojis =
-    ["🤐", "😅", "😡", "🤗", "😡", "🧐", "🤯", "😅", "🧐", "🤐", "🤗", "🤯"].sort(function() { return 0.5 -      Math.random() });
-
+  
   const items = [];
   emojis.forEach((e) => {
     const div = document.createElement("div");

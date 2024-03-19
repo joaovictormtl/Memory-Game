@@ -140,7 +140,7 @@ span{
   text-align: center;
 }
 
-@keyframes animacaoMsgBox{
+@keyframes animacaoFadeOut{
   0%{
     opacity: 1;
   }
@@ -164,6 +164,8 @@ span{
   width: 100%;
   display: none;
   gap: 40px;
+  opacity: 0;
+  transition: 0.3s;
 }
 
 .dif-button{
