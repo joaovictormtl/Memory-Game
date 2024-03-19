@@ -9,10 +9,15 @@ btn = getQ(".btn");
 btnNew = getQ(".btn-new");
 body = getQ("body");
 msgInicial = getQ(".msg-inicial");
+msgBox = getQ(".msg-box");
 let cardBefore;
 let durations;
 
+btnNew.addEventListener("click", newGame);
+
 function newGame() {
+  msgInicial.style.animation = "animacaoMsgBox 0.3s forwards";
+  
   cardBefore = null;
   display.style.color = "#fff";
   
@@ -37,7 +42,7 @@ function newGame() {
       for(item of itemsP){
         item.remove();
       } 
-    }, 170 * itemsP.length);
+    }, 160 * itemsP.length);
   }
   
   if(containerCenter.innerHTML == ""){
@@ -50,7 +55,6 @@ function newGame() {
 }
 
 function preencherItems(){
-  msgInicial.style.display = "none";
   body.style.backgroundColor = "#5441b0";
   display.style.display = "flex";
   btn.style.display = "none";
@@ -108,8 +112,6 @@ function rmvEvent() {
     span.removeEventListener("click", clickCard);
   }
 }
-
-btnNew.addEventListener("click", newGame);
 
 async function clickCard() {
   span = this.querySelector("span");
