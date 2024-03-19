@@ -16,8 +16,6 @@ let durations;
 btnNew.addEventListener("click", newGame);
 
 function newGame() {
-  msgInicial.style.animation = "animacaoMsgBox 0.3s forwards";
-  
   cardBefore = null;
   display.style.color = "#fff";
   
