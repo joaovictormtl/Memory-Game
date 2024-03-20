@@ -9,10 +9,11 @@ display = getQ('#time');
 btn = getQ(".btn");
 btnNew = getQ(".btn-new");
 body = getQ("body");
-msgInicial = getQ(".msg-inicial");
 msgBox = getQ(".msg-box");
 difContainer = getQ(".dif-container");
 const btnsDif = difContainer.querySelectorAll(".dif-button");
+const gameDif = getQ('.game-dif');
+const changeDif = getQ('.change-dif');
 let emojis;
 let cardBefore;
 let durations;
@@ -20,94 +21,108 @@ let durations;
 btnNew.addEventListener("click", mostrarDificuldades);
 btn.addEventListener("click", newGame);
 
-function mostrarDificuldades(){
+function mostrarDificuldades() {
   msgBox.style.animation = "animacaoFadeOut 0.3s forwards";
 
-  setTimeout(()=>{
+  setTimeout(() => {
     msgBox.style.display = "none";
     difContainer.style.display = "flex";
 
-    setTimeout(()=>{
-      difContainer.style.opacity = '1';  
+    setTimeout(() => {
+      difContainer.style.opacity = '1';
     }, 100);
   }, 300);
 
   focusBtn();
 }
 
-function focusBtn(){
-  btnsDif.forEach(button =>{
-    button.addEventListener('focus',()=>{
+function focusBtn() {
+  btnsDif.forEach(button => {
+    button.addEventListener('focus', () => {
       const dificuldade = button.querySelector(".dif-text").textContent;
       emojis = definirDificuldade(dificuldade);
-      setTimeout(()=>{
+      setTimeout(() => {
         difContainer.style.animation = 'animacaoFadeOut 0.3s forwards';
-        newGame(emojis);  
-      }, 300);
+        newGame(emojis);
+      }, 400);
     });
   });
 }
 
-function definirDificuldade(dificuldade){
-  if(dificuldade == "fácil"){
+function definirDificuldade(dificuldade) {
+  if (dificuldade == "fácil") {
     localStorage.setItem('dificuldade', 'fácil');
+    setTimeout(() => {
+      gameDif.innerText = "Fácil";
+      gameDif.style.color = "#8ad31d";
+      gameDif.style.textShadow = "0px 0px 4px #8ad31d";
+    }, 100);
     return ["🤐", "😅", "😡", "🤗", "😡", "🧐", "🤯", "😅", "🧐", "🤐", "🤗", "🤯"].sort(function() { return 0.5 - Math.random() });
   }
-  else if (dificuldade == "médio"){
+  else if (dificuldade == "médio") {
     localStorage.setItem('dificuldade', 'médio');
+    setTimeout(() => {
+      gameDif.innerText = "Médio";
+      gameDif.style.color = "#ffc83d";
+      gameDif.style.textShadow = "0px 0px 4px #ffc83d";
+    }, 100);
     return ["😃", "😒", "😐", "😑", "😐", "😄", "😧", "😒", "😄", "😃", "😑", "😧"].sort(function() { return 0.5 - Math.random() });
   }
-  else{
+  else {
     localStorage.setItem('dificuldade', 'difícil');
+    setTimeout(() => {
+      gameDif.innerText = "Difícil";
+      gameDif.style.color = "tomato";
+      gameDif.style.textShadow = "0px 0px 4px tomato";
+    }, 100);
     return ["🏙", "🏜", "🏕", "🏖", "🏕", "🏝", "🏞", "🏜", "🏝", "🏙", "🏖", "🏞"].sort(function() { return 0.5 - Math.random() });
   }
 }
 
 function newGame(emojis) {
-  
   container.style.display = "block";
   cardBefore = null;
   display.style.color = "#fff";
-  
-  if(!containerCenter.innerHTML == ""){
+
+  if (!containerCenter.innerHTML == "") {
     emojis = definirDificuldade(localStorage.getItem('dificuldade'));
     btn.style.display = "none";
     const itemsP = containerCenter.querySelectorAll('.item');
 
     let tamanho = itemsP.length - 1;
-    let intervalSumir = setInterval(() =>{
+    let intervalSumir = setInterval(() => {
 
       itemsP[tamanho].style.opacity = '0';
       itemsP[tamanho].style.pointerEvents = "none";
-      
+
       tamanho--;
-      
-      if(tamanho < 0){
+
+      if (tamanho < 0) {
         clearInterval(intervalSumir);
       }
     }, 150);
 
-    setTimeout(()=>{
-      for(item of itemsP){
+    setTimeout(() => {
+      for (item of itemsP) {
         item.remove();
-      } 
+      }
     }, 160 * itemsP.length);
   }
-  
-  if(containerCenter.innerHTML == ""){
+
+  if (containerCenter.innerHTML == "") {
     preencherItems(emojis);
-  } else{
-    setTimeout(()=>{
+  } else {
+    setTimeout(() => {
       preencherItems(emojis);
     }, 150 * 12);
   }
 }
 
-function preencherItems(emojis){
+function preencherItems(emojis) {
   body.style.backgroundColor = "#5441b0";
   display.style.display = "flex";
   btn.style.display = "none";
-  
+
   const items = [];
   emojis.forEach((e) => {
     const div = document.createElement("div");
@@ -120,23 +135,23 @@ function preencherItems(emojis){
     items.push(div);
   });
 
-  for(item of items){
+  for (item of items) {
     item.style.pointerEvents = "auto";
     containerCenter.appendChild(item);
   }
 
   let tamanho = 0;
-  let intervalPreencher = setInterval(() =>{
+  let intervalPreencher = setInterval(() => {
 
     items[tamanho].style.opacity = '1';
     tamanho++;
-    if(tamanho >= items.length){
+    if (tamanho >= items.length) {
       clearInterval(intervalPreencher);
     }
   }, 150);
 
-  setTimeout(()=>{
-    for(item of items){
+  setTimeout(() => {
+    for (item of items) {
       item.style.pointerEvents = "auto";
     }
     durations = 60;
@@ -164,8 +179,8 @@ async function clickCard() {
   this.style.transition = "transform 0.6s";
   this.style.transform = "rotateY(180deg)";
 
-  setTimeout(()=>{
-    span.style.display = "flex"; 
+  setTimeout(() => {
+    span.style.display = "flex";
   }, 50)
 
   if (!cardBefore) {
@@ -177,7 +192,7 @@ async function clickCard() {
   } else if (span.innerHTML == cardBefore.querySelector("span").innerHTML) {
     this.style.border = "solid 2px #8ad31d";
     this.style.pointerEvents = "none";
-    
+
     cardBefore.style.border = "solid 2px #8ad31d";
     cardBefore = null;
     chkWin();
@@ -222,14 +237,14 @@ function setime2(t) {
     return
   }
 
-  if(durations < 10){
+  if (durations < 10) {
     display.style.color = "tomato";
   }
   display.innerHTML = `⌛${durations < 10 ? ("0" + durations--) : durations--}`;
 
-  if(display.innerHTML == "⌛00"){
+  if (display.innerHTML == "⌛00") {
     const items = containerCenter.querySelectorAll(".item");
-    for(item of items){
+    for (item of items) {
       item.style.pointerEvents = "none";
     }
   }

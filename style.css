@@ -93,6 +93,22 @@ span{
   font-weight: bold;
 }
 
+.game-dif{
+  transition: 0.3s;
+}
+
+/* .change-dif{
+  padding: 10px;
+  position: absolute;
+  top: 20%;
+  right: 50px;
+  color: #fff;
+  background: tomato;
+  cursor: pointer;
+  border-radius: 5px;
+  display: none;
+} */
+
 .btn-new{
   padding: 15px 40px;
   font-size: 1.2rem;
@@ -147,6 +163,16 @@ span{
   100%{
     opacity: 0;
     display: none;
+  }
+}
+
+@keyframes animacaoFadeIn{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+    display: flex;
   }
 }
 
