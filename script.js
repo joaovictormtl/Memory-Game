@@ -13,10 +13,11 @@ msgBox = getQ(".msg-box");
 difContainer = getQ(".dif-container");
 const btnsDif = difContainer.querySelectorAll(".dif-button");
 const gameDif = getQ('.game-dif');
+const toqueLevel = getQ('.toque-level');
 const changeDif = getQ('.change-dif');
 const telaFim = getQ(".tela-fim");
 const msgFim = getQ(".msg-fim");
-const ToquesFim = getQ(".toques-fim");
+const toquesFim = getQ(".toques-fim");
 let emojis;
 let cardBefore;
 let durations;
@@ -27,6 +28,7 @@ btn.addEventListener("click", newGame);
 changeDif.addEventListener("click", mudarDificuldade);
 
 function mudarDificuldade(){
+  clearInterval(decrem);
   container.style.animation = "animacaoFadeOut 0.5s forwards";
   difContainer.style.animation = "animacaoFadeIn 0.5s forwards";
   container.classList.add('difChange');
@@ -95,7 +97,8 @@ function newGame(emojis) {
     container.style.animation = "animacaoFadeIn 0.5s forwards";
   }
   
-  changeDif.style.display = "block";
+  toqueLevel.style.display = "flex";
+  toquesFim.innerText = "0 toques";
   telaFim.style.animation = "animacaoFadeOut 0.3s forwards";
   container.style.display = "block";
   cardBefore = null;
@@ -193,6 +196,7 @@ function rmvEvent() {
 
 async function clickCard() {
   numToques++;
+  toquesFim.innerHTML = `${numToques} toques`;
   span = this.querySelector("span");
   this.style.transition = "transform 0.6s";
   this.style.transform = "rotateY(180deg)";
@@ -280,5 +284,4 @@ function setime2(t) {
     telaFim.style.animation = "animacaoFadeIn 0.3s forwards";
     msgFim.innerHTML = "Acabou o tempo!";
   }
-  ToquesFim.innerHTML = `${numToques} toques`;
 }

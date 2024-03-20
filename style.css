@@ -122,16 +122,21 @@ span{
   transition: 0.3s;
 }
 
-.change-dif{
-  padding: 10px;
+.toque-level{
   position: absolute;
   top: 20%;
   right: 50px;
+  display: none;
+  align-items: center;
+}
+
+.change-dif{
+  margin-right: 20px;
+  padding: 10px;
   color: #fff;
   background: tomato;
   cursor: pointer;
   border-radius: 5px;
-  display: none;
 }
 
 .btn-new{
@@ -323,6 +328,16 @@ span{
 
   .dif-emoji{
     font-size: 2rem;
+  }
+
+  .toque-level{
+    justify-content: center;
+    margin-top: 10px;
+    position: static;
+  }
+
+  .change-dif{
+    width: 100px;
   }
 }
 
