@@ -14,9 +14,13 @@ difContainer = getQ(".dif-container");
 const btnsDif = difContainer.querySelectorAll(".dif-button");
 const gameDif = getQ('.game-dif');
 const changeDif = getQ('.change-dif');
+const telaFim = getQ(".tela-fim"); 
+const msgFim = getQ(".msg-fim");
+const ToquesFim = getQ(".toques-fim");
 let emojis;
 let cardBefore;
 let durations;
+let numToques = 0;
 
 btnNew.addEventListener("click", mostrarDificuldades);
 btn.addEventListener("click", newGame);
@@ -75,11 +79,12 @@ function definirDificuldade(dificuldade) {
       gameDif.style.color = "tomato";
       gameDif.style.textShadow = "0px 0px 4px tomato";
     }, 100);
-    return ["🏙", "🏜", "🏕", "🏖", "🏕", "🏝", "🏞", "🏜", "🏝", "🏙", "🏖", "🏞"].sort(function() { return 0.5 - Math.random() });
+    return ["👨‍👨‍👦️", "👨‍👨‍👦‍👦", "👨‍👨‍👧", "👨‍👨‍👧‍👦", "👨‍👨‍👧", "👨‍👨‍👧‍👧", "👨‍👩‍👦‍👦", "👨‍👨‍👦‍👦", "👨‍👨‍👧‍👧", "👨‍👨‍👦️", "👨‍👨‍👧‍👦", "👨‍👩‍👦‍👦"].sort(function() { return 0.5 - Math.random() });
   }
 }
 
 function newGame(emojis) {
+  telaFim.style.animation = "animacaoFadeOut 0.3s forwards";
   container.style.display = "block";
   cardBefore = null;
   display.style.color = "#fff";
@@ -175,6 +180,7 @@ function rmvEvent() {
 }
 
 async function clickCard() {
+  numToques++;
   span = this.querySelector("span");
   this.style.transition = "transform 0.6s";
   this.style.transform = "rotateY(180deg)";
@@ -230,9 +236,19 @@ function chkWin() {
   setime2(count)
 }
 
+
+
 function setime2(t) {
   if (durations < 0 || t == 12) {
     clearInterval(decrem);
+
+    if(t == 12){
+      telaFim.style.display = "flex";
+      telaFim.style.backgroundColor = "rgba(138,211,29,0.8)";
+      telaFim.style.animation = "animacaoFadeIn 0.3s forwards";
+      msgFim.innerHTML = "Parabéns, você ganhou!";
+    }
+    
     btn.style.display = "block";
     return
   }
@@ -247,5 +263,10 @@ function setime2(t) {
     for (item of items) {
       item.style.pointerEvents = "none";
     }
+    telaFim.style.display = "flex";
+    telaFim.style.backgroundColor = "rgba(255,99,71,0.8)";
+    telaFim.style.animation = "animacaoFadeIn 0.3s forwards";
+    msgFim.innerHTML = "Acabou o tempo!";
   }
+  ToquesFim.innerHTML = `${numToques} toques`;
 }
