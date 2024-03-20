@@ -14,7 +14,7 @@ difContainer = getQ(".dif-container");
 const btnsDif = difContainer.querySelectorAll(".dif-button");
 const gameDif = getQ('.game-dif');
 const changeDif = getQ('.change-dif');
-const telaFim = getQ(".tela-fim"); 
+const telaFim = getQ(".tela-fim");
 const msgFim = getQ(".msg-fim");
 const ToquesFim = getQ(".toques-fim");
 let emojis;
@@ -24,6 +24,13 @@ let numToques = 0;
 
 btnNew.addEventListener("click", mostrarDificuldades);
 btn.addEventListener("click", newGame);
+changeDif.addEventListener("click", mudarDificuldade);
+
+function mudarDificuldade(){
+  container.style.animation = "animacaoFadeOut 0.5s forwards";
+  difContainer.style.animation = "animacaoFadeIn 0.5s forwards";
+  container.classList.add('difChange');
+}
 
 function mostrarDificuldades() {
   msgBox.style.animation = "animacaoFadeOut 0.3s forwards";
@@ -84,6 +91,11 @@ function definirDificuldade(dificuldade) {
 }
 
 function newGame(emojis) {
+  if(container.classList.contains('difChange')){
+    container.style.animation = "animacaoFadeIn 0.5s forwards";
+  }
+  
+  changeDif.style.display = "block";
   telaFim.style.animation = "animacaoFadeOut 0.3s forwards";
   container.style.display = "block";
   cardBefore = null;
@@ -242,13 +254,13 @@ function setime2(t) {
   if (durations < 0 || t == 12) {
     clearInterval(decrem);
 
-    if(t == 12){
+    if (t == 12) {
       telaFim.style.display = "flex";
       telaFim.style.backgroundColor = "rgba(138,211,29,0.8)";
       telaFim.style.animation = "animacaoFadeIn 0.3s forwards";
-      msgFim.innerHTML = "Parabéns, você ganhou!";
+      msgFim.innerHTML = "Você ganhou!";
     }
-    
+
     btn.style.display = "block";
     return
   }

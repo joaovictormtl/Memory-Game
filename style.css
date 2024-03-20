@@ -122,7 +122,7 @@ span{
   transition: 0.3s;
 }
 
-/* .change-dif{
+.change-dif{
   padding: 10px;
   position: absolute;
   top: 20%;
@@ -132,7 +132,7 @@ span{
   cursor: pointer;
   border-radius: 5px;
   display: none;
-} */
+}
 
 .btn-new{
   padding: 15px 40px;
