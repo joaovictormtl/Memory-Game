@@ -27,10 +27,13 @@ btnNew.addEventListener("click", mostrarDificuldades);
 btn.addEventListener("click", newGame);
 changeDif.addEventListener("click", mudarDificuldade);
 
-function mudarDificuldade(){
+function mudarDificuldade() {
   clearInterval(decrem);
-  container.style.animation = "animacaoFadeOut 0.5s forwards";
-  difContainer.style.animation = "animacaoFadeIn 0.5s forwards";
+  container.style.animation = "animacaoFadeOut 0.3s forwards";
+
+  setTimeout(() => {
+    difContainer.style.animation = "animacaoFadeIn 0.3s forwards";
+  }, 300);
   container.classList.add('difChange');
 }
 
@@ -57,7 +60,7 @@ function focusBtn() {
       setTimeout(() => {
         difContainer.style.animation = 'animacaoFadeOut 0.3s forwards';
         newGame(emojis);
-      }, 400);
+      }, 300);
     });
   });
 }
@@ -93,12 +96,13 @@ function definirDificuldade(dificuldade) {
 }
 
 function newGame(emojis) {
-  if(container.classList.contains('difChange')){
-    container.style.animation = "animacaoFadeIn 0.5s forwards";
+  if (container.classList.contains('difChange')) {
+    container.style.animation = "animacaoFadeIn 0.3s forwards";
   }
-  
+
   toqueLevel.style.display = "flex";
   toquesFim.innerText = "0 toques";
+  numToques = 0;
   telaFim.style.animation = "animacaoFadeOut 0.3s forwards";
   container.style.display = "block";
   cardBefore = null;
