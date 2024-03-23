@@ -154,13 +154,13 @@ function preencherItems(emojis) {
 
     const span = document.createElement("span");
     span.innerText = e;
+    span.style.display = "block";
     div.appendChild(span);
 
     items.push(div);
   });
 
   for (item of items) {
-    item.style.pointerEvents = "auto";
     containerCenter.appendChild(item);
   }
 
@@ -176,11 +176,21 @@ function preencherItems(emojis) {
 
   setTimeout(() => {
     for (item of items) {
+      item.style.transition = "transform 0.6s";
+      item.style.transform = "rotateY(360deg)";
       item.style.pointerEvents = "auto";
     }
+
+    setTimeout(()=>{
+      for (item of items){
+        item.querySelector("span").style.display = "none";
+      } 
+    }, 200);
+    
     durations = 60;
     decrem = setInterval(setime2, 1000);
     addEvent();
+    
   }, 180 * items.length);
 }
 
@@ -206,7 +216,7 @@ async function clickCard() {
   this.style.transform = "rotateY(180deg)";
 
   setTimeout(() => {
-    span.style.display = "flex";
+    span.style.display = "block";
   }, 50)
 
   if (!cardBefore) {
