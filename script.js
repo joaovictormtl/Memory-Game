@@ -181,16 +181,16 @@ function preencherItems(emojis) {
       item.style.pointerEvents = "auto";
     }
 
-    setTimeout(()=>{
-      for (item of items){
+    setTimeout(() => {
+      for (item of items) {
         item.querySelector("span").style.display = "none";
-      } 
+      }
     }, 200);
-    
+
     durations = 60;
     decrem = setInterval(setime2, 1000);
     addEvent();
-    
+
   }, 180 * items.length);
 }
 
@@ -259,14 +259,12 @@ function chkWin() {
   let count = 1
   spans = document.querySelectorAll('.item');
   for (let span of spans) {
-    if (span.querySelector("span").style.display == "flex") {
+    if (span.querySelector("span").style.display == "block") {
       count++
     }
   }
   setime2(count)
 }
-
-
 
 function setime2(t) {
   if (durations < 0 || t == 12) {
