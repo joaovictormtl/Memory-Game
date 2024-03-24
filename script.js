@@ -6,7 +6,6 @@ decrem = "";
 container = getQ(".container");
 containerCenter = getQ(".container .center");
 display = getQ('#time');
-btn = getQ(".btn");
 btnNew = getQ(".btn-new");
 body = getQ("body");
 msgBox = getQ(".msg-box");
@@ -18,28 +17,62 @@ const changeDif = getQ('.change-dif');
 const telaFim = getQ(".tela-fim");
 const msgFim = getQ(".msg-fim");
 const toquesFim = getQ(".toques-fim");
+const btnFim = getQ(".btn-fim");
 let emojis;
 let cardBefore;
 let durations;
 let numToques = 0;
 
-btnNew.addEventListener("click", mostrarDificuldades);
-btn.addEventListener("click", newGame);
+/* Jogador */
+let nomeJogador;
+let levelJogador;
+let toquesJogador;
+let tempoJogador;
+let infoJogador = {
+  dificuldade: "",
+  toque: 0,
+  tempo: 0
+}
+/***************/
+
+btnNew.addEventListener("click", cadastrarJogador);
 changeDif.addEventListener("click", mudarDificuldade);
+
+function cadastrarJogador() {
+  msgBox.style.animation = "fadeOut 0.3s forwards";
+
+  setTimeout(() => {
+    swal({
+      title: "Digite o seu nome",
+      content: {
+        element: "input",
+        attributes: {
+          className: "nome-input"
+        }
+      },
+      button: "Enviar"
+    })
+      .then(nome => {
+        nomeJogador = nome;
+        console.log(nomeJogador);
+        mostrarDificuldades();
+      })
+  }, 300);
+}
 
 function mudarDificuldade() {
   clearInterval(decrem);
   body.style.backgroundColor = "#44358d";
-  container.style.animation = "animacaoFadeOut 0.3s forwards";
+  container.style.animation = "fadeOut 0.3s forwards";
 
   setTimeout(() => {
-    difContainer.style.animation = "animacaoFadeIn 0.3s forwards";
+    difContainer.style.animation = "fadeIn 0.3s forwards";
   }, 300);
   container.classList.add('difChange');
 }
 
 function mostrarDificuldades() {
-  msgBox.style.animation = "animacaoFadeOut 0.3s forwards";
+  msgBox.style.animation = "fadeOut 0.3s forwards";
 
   setTimeout(() => {
     msgBox.style.display = "none";
@@ -57,9 +90,11 @@ function focusBtn() {
   btnsDif.forEach(button => {
     button.addEventListener('focus', () => {
       const dificuldade = button.querySelector(".dif-text").textContent;
+      levelJogador = dificuldade;
+      console.log(levelJogador);
       emojis = definirDificuldade(dificuldade);
       setTimeout(() => {
-        difContainer.style.animation = 'animacaoFadeOut 0.3s forwards';
+        difContainer.style.animation = 'fadeOut 0.3s forwards';
         newGame(emojis);
       }, 300);
     });
@@ -98,20 +133,20 @@ function definirDificuldade(dificuldade) {
 
 function newGame(emojis) {
   if (container.classList.contains('difChange')) {
-    container.style.animation = "animacaoFadeIn 0.3s forwards";
+    container.style.animation = "fadeIn 0.3s forwards";
   }
 
+  btnFim.style.display = "none";
   toqueLevel.style.display = "flex";
   toquesFim.innerText = "0 toques";
   numToques = 0;
-  telaFim.style.animation = "animacaoFadeOut 0.3s forwards";
+  telaFim.style.animation = "fadeOut 0.3s forwards";
   container.style.display = "block";
   cardBefore = null;
   display.style.color = "#fff";
 
   if (!containerCenter.innerHTML == "") {
     emojis = definirDificuldade(localStorage.getItem('dificuldade'));
-    btn.style.display = "none";
     const itemsP = containerCenter.querySelectorAll('.item');
 
     let tamanho = itemsP.length - 1;
@@ -146,7 +181,6 @@ function newGame(emojis) {
 function preencherItems(emojis) {
   body.style.backgroundColor = "#5441b0";
   display.style.display = "flex";
-  btn.style.display = "none";
 
   const items = [];
   emojis.forEach((e) => {
@@ -154,6 +188,7 @@ function preencherItems(emojis) {
     div.classList.add('item');
 
     const span = document.createElement("span");
+    span.classList.add("emoji");
     span.innerText = e;
     span.style.display = "block";
     div.appendChild(span);
@@ -272,13 +307,39 @@ function setime2(t) {
     clearInterval(decrem);
 
     if (t == 12) {
+      toquesJogador = numToques;
+      tempoJogador = durations + 1;
+      console.log(toquesJogador, tempoJogador);
       telaFim.style.display = "flex";
       telaFim.style.backgroundColor = "rgba(138,211,29,0.8)";
-      telaFim.style.animation = "animacaoFadeIn 0.3s forwards";
+      telaFim.style.animation = "fadeIn 0.3s forwards";
       msgFim.innerHTML = "Você ganhou!";
+
+      setTimeout(() => {
+        swal({
+          title: "Performance",
+          content: {
+            element: "div",
+            attributes: {
+              innerHTML: `
+                <p><span class="perf-dados">Level:</span> ${levelJogador}</p>
+                <p><span class="perf-dados">Toques:</span> ${toquesJogador}</p>
+                <p><span class="perf-dados">Tempo:</span> ${tempoJogador}s</p>
+              `,
+              className: "perf-para"
+            }
+          },
+          button: {
+            confirm: {
+              className: "btn"
+            }
+          }
+        }).then(() => {
+          newGame();
+        })
+      }, 500);
     }
 
-    btn.style.display = "block";
     return
   }
 
@@ -288,13 +349,17 @@ function setime2(t) {
   display.innerHTML = `⌛${durations < 10 ? ("0" + durations--) : durations--}`;
 
   if (display.innerHTML == "⌛00") {
+    clearInterval(decrem);
     const items = containerCenter.querySelectorAll(".item");
     for (item of items) {
       item.style.pointerEvents = "none";
     }
     telaFim.style.display = "flex";
     telaFim.style.backgroundColor = "rgba(255,99,71,0.8)";
-    telaFim.style.animation = "animacaoFadeIn 0.3s forwards";
+    telaFim.style.animation = "fadeIn 0.3s forwards";
     msgFim.innerHTML = "Acabou o tempo!";
+    btnFim.style.display = "block";
   }
 }
+
+btnFim.addEventListener("click", newGame);
