@@ -96,7 +96,6 @@ span{
   position: absolute;
   display: none;
   font-size: 9rem;
-/*   transform: rotateY(180deg); */
 }
 
 .newGame, .score{
@@ -356,6 +355,7 @@ span{
 
 @media (max-width: 500px) and (orientation: portrait){
   .dif-container{
+    padding-top: 100px;
     flex-direction: column;
     align-items: center;
     gap: 30px;

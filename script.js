@@ -29,6 +29,7 @@ changeDif.addEventListener("click", mudarDificuldade);
 
 function mudarDificuldade() {
   clearInterval(decrem);
+  body.style.backgroundColor = "#44358d";
   container.style.animation = "animacaoFadeOut 0.3s forwards";
 
   setTimeout(() => {
