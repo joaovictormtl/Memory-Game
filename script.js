@@ -349,7 +349,6 @@ function setime2(t) {
   display.innerHTML = `⌛${durations < 10 ? ("0" + durations--) : durations--}`;
 
   if (display.innerHTML == "⌛00") {
-    clearInterval(decrem);
     const items = containerCenter.querySelectorAll(".item");
     for (item of items) {
       item.style.pointerEvents = "none";
