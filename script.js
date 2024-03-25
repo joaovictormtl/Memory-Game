@@ -14,9 +14,9 @@ const btnsDif = difContainer.querySelectorAll(".dif-button");
 const gameDif = getQ('.game-dif');
 const toqueLevel = getQ('.toque-level');
 const changeDif = getQ('.change-dif');
+const ranking = getQ('.ranking');
 const telaFim = getQ(".tela-fim");
 const msgFim = getQ(".msg-fim");
-const toquesFim = getQ(".toques-fim");
 const btnFim = getQ(".btn-fim");
 let emojis;
 let cardBefore;
@@ -143,7 +143,6 @@ function newGame(emojis) {
 
   btnFim.style.display = "none";
   toqueLevel.style.display = "flex";
-  toquesFim.innerText = "0 toques";
   numToques = 0;
   telaFim.style.animation = "fadeOut 0.3s forwards";
   container.style.display = "block";
@@ -252,7 +251,6 @@ function rmvEvent() {
 
 async function clickCard() {
   numToques++;
-  toquesFim.innerHTML = `${numToques} toques`;
   span = this.querySelector("span");
   this.style.transition = "transform 0.6s";
   this.style.transform = "rotateY(180deg)";
