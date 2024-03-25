@@ -25,12 +25,9 @@ let numToques = 0;
 
 /* Jogador */
 let nomeJogador;
-let levelJogador;
-let toquesJogador;
-let tempoJogador;
 let infoJogador = {
   dificuldade: "",
-  toque: 0,
+  toques: 0,
   tempo: 0
 }
 /***************/
@@ -54,7 +51,6 @@ function cadastrarJogador() {
     })
       .then(nome => {
         nomeJogador = nome;
-        console.log(nomeJogador);
         mostrarDificuldades();
       })
   }, 300);
@@ -90,8 +86,7 @@ function focusBtn() {
   btnsDif.forEach(button => {
     button.addEventListener('focus', () => {
       const dificuldade = button.querySelector(".dif-text").textContent;
-      levelJogador = dificuldade;
-      console.log(levelJogador);
+      infoJogador.dificuldade = dificuldade;
       emojis = definirDificuldade(dificuldade);
       setTimeout(() => {
         difContainer.style.animation = 'fadeOut 0.3s forwards';
@@ -307,9 +302,9 @@ function setime2(t) {
     clearInterval(decrem);
 
     if (t == 12) {
-      toquesJogador = numToques;
-      tempoJogador = durations + 1;
-      console.log(toquesJogador, tempoJogador);
+      infoJogador.toques = numToques;
+      infoJogador.tempo = durations + 1;
+      salvarJogador();
       telaFim.style.display = "flex";
       telaFim.style.backgroundColor = "rgba(138,211,29,0.8)";
       telaFim.style.animation = "fadeIn 0.3s forwards";
@@ -322,9 +317,9 @@ function setime2(t) {
             element: "div",
             attributes: {
               innerHTML: `
-                <p><span class="perf-dados">Level:</span> ${levelJogador}</p>
-                <p><span class="perf-dados">Toques:</span> ${toquesJogador}</p>
-                <p><span class="perf-dados">Tempo:</span> ${tempoJogador}s</p>
+                <p><span class="perf-dados">Level:</span> ${infoJogador.dificuldade}</p>
+                <p><span class="perf-dados">Toques:</span> ${infoJogador.toques}</p>
+                <p><span class="perf-dados">Tempo:</span> ${infoJogador.tempo}s</p>
               `,
               className: "perf-para"
             }
@@ -362,3 +357,7 @@ function setime2(t) {
 }
 
 btnFim.addEventListener("click", newGame);
+
+function salvarJogador() {
+  localStorage.setItem(nomeJogador, JSON.stringify(infoJogador));
+}
