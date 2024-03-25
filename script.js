@@ -64,6 +64,7 @@ function solicitarNome() {
 }
 
 function mudarDificuldade() {
+  changeDif.style.pointerEvents = "none";
   clearInterval(decrem);
   body.style.backgroundColor = "#44358d";
   container.style.animation = "fadeOut 0.3s forwards";
@@ -134,7 +135,9 @@ function definirDificuldade(dificuldade) {
 }
 
 function newGame(emojis) {
+  changeDif.style.pointerEvents = "none";
   if (container.classList.contains('difChange')) {
+    clearInterval(decrem);
     container.style.animation = "fadeIn 0.3s forwards";
   }
 
@@ -227,6 +230,7 @@ function preencherItems(emojis) {
 
     durations = 60;
     decrem = setInterval(setime2, 1000);
+    changeDif.style.pointerEvents = "auto";
     addEvent();
 
   }, 180 * items.length);
