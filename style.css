@@ -250,14 +250,34 @@ span.emoji{
 
 /* Swal */
 
+.swal-modal{
+  background: #44358d;
+}
+
+.swal-title{
+  color: #fff;
+}
+
 .nome-input{
+  padding: 8px;
+  width: 80%;
+  height: 40px;
   text-align: center;
-  height: 30px;
-  padding: 5px 8px;
+  font-size: 1.2rem;
 }
 
 .nome-input:focus{
   outline: none;
+}
+
+.swal-modal .swal-button{
+  background-color: #8ad31d;
+  transition: 0.3s;
+}
+
+.swal-modal .swal-button:hover{
+  background-color: #8ad31d;
+  box-shadow: 0px 0px 30px 0px rgba(138,211,29,1);
 }
 
 .swal-footer{
@@ -271,11 +291,17 @@ span.emoji{
   gap: 30px;
   font-size: 1.1rem;
   text-transform: capitalize;
+  color: #fff;
 }
 
 .perf-dados{
   font-weight: bold;
   font-size: 1.3rem;
+  color: #8ad31d;
+}
+
+.perf-swal{
+  border: 2px solid #fff;
 }
 
 /*******/

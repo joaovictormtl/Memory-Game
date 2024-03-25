@@ -39,21 +39,28 @@ function cadastrarJogador() {
   msgBox.style.animation = "fadeOut 0.3s forwards";
 
   setTimeout(() => {
-    swal({
-      title: "Digite o seu nome",
-      content: {
-        element: "input",
-        attributes: {
-          className: "nome-input"
-        }
-      },
-      button: "Enviar"
-    })
-      .then(nome => {
-        nomeJogador = nome;
-        mostrarDificuldades();
-      })
+    solicitarNome();
   }, 300);
+}
+
+function solicitarNome() {
+  return swal({
+    title: 'Digite o seu nome',
+    content: {
+      element: "input",
+      attributes: {
+        className: "nome-input"
+      }
+    },
+    button: "Enviar",
+  }).then(nome => {
+    if (!nome) {
+      return solicitarNome();
+    } else {
+      nomeJogador = nome;
+      mostrarDificuldades();
+    }
+  });
 }
 
 function mudarDificuldade() {
@@ -328,7 +335,8 @@ function setime2(t) {
             confirm: {
               className: "btn"
             }
-          }
+          },
+          className: "perf-swal"
         }).then(() => {
           newGame();
         })
