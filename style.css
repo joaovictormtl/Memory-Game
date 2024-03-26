@@ -51,7 +51,7 @@
 }
 
 body {
-  background-color: #44358d;
+  background: #44358d;
   transition: 0.5s;
 }
 
@@ -137,7 +137,6 @@ span.emoji{
   color: #fff;
   cursor: pointer;
   background: tomato;
-  border: 1px solid #fff;
   border-radius: 5px;
   transition: 0.3s;
 }
@@ -147,7 +146,7 @@ span.emoji{
   padding: 8px;
   font-size: 1.1rem;
   border-radius: 50%;
-  background: #fff;
+  background: radial-gradient(circle, rgba(68,53,141,1) 10%, rgba(255,200,61,1) 100%);
   cursor: pointer;
 }
 
@@ -180,6 +179,23 @@ span.emoji{
   font-size: 1.5rem;
   background-color: rgba(2,2,2,0.5);
   border-radius: 50%;
+}
+
+.msg-rank{
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  padding: 10px;
+  width: 80px;
+  height: 80px;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, rgba(68,53,141,1) 10%, rgba(255,200,61,1) 100%);
+  border-radius: 50%;
+  border: 1px solid #fff;
+  cursor: pointer;
 }
 
 .msg-inicial{
@@ -222,7 +238,7 @@ span.emoji{
 }
 
 .msg-text{
-  margin: 40px 0;
+  margin: 10px 0 30px;
   font-size: 1.5rem;
   font-weight: bold;
 }
@@ -263,7 +279,7 @@ span.emoji{
 /* Swal */
 
 .swal-modal{
-  background: #44358d;
+  background: #5441b0;
 }
 
 .swal-title{
@@ -331,17 +347,6 @@ span.emoji{
 @media screen and (max-width: 850px){
   .dif-emoji{
     font-size: 3.8rem;
-  }
-
-  .toque-level{
-    justify-content: center;
-    margin-top: 10px;
-    position: static;
-    border: 0;
-  }
-
-  .change-dif{
-    width: 100px;
   }
 }
 
@@ -414,6 +419,13 @@ span.emoji{
   .dif-emoji{
     font-size: 2rem;
   }
+
+  .toque-level{
+    justify-content: center;
+    margin-top: 10px;
+    position: static;
+    border: 0;
+  }
 }
 
 @media screen and (max-width: 500px){
@@ -427,6 +439,12 @@ span.emoji{
   
   span.emoji{
     font-size: 3.5rem;
+  }
+
+  .msg-rank{
+    width: 60px;
+    height: 60px;
+    font-size: 1.4rem;
   }
 }
 

@@ -14,6 +14,7 @@ const btnsDif = difContainer.querySelectorAll(".dif-button");
 const gameDif = getQ('.game-dif');
 const toqueLevel = getQ('.toque-level');
 const changeDif = getQ('.change-dif');
+const msgRank = getQ('.msg-rank');
 const ranking = getQ('.ranking');
 const telaFim = getQ(".tela-fim");
 const msgFim = getQ(".msg-fim");
@@ -66,7 +67,7 @@ function solicitarNome() {
 function mudarDificuldade() {
   changeDif.style.pointerEvents = "none";
   clearInterval(decrem);
-  body.style.backgroundColor = "#44358d";
+  body.style.background = "#44358d";
   container.style.animation = "fadeOut 0.3s forwards";
 
   setTimeout(() => {
@@ -111,6 +112,7 @@ function definirDificuldade(dificuldade) {
       gameDif.innerText = "Fácil";
       gameDif.style.color = "#8ad31d";
       gameDif.style.textShadow = "0px 0px 4px #8ad31d";
+      ranking.style.border = "2px solid #8ad31d";
     }, 100);
     return ["🤐", "😅", "😡", "🤗", "😡", "🧐", "🤯", "😅", "🧐", "🤐", "🤗", "🤯"].sort(function() { return 0.5 - Math.random() });
   }
@@ -120,6 +122,7 @@ function definirDificuldade(dificuldade) {
       gameDif.innerText = "Médio";
       gameDif.style.color = "#ffc83d";
       gameDif.style.textShadow = "0px 0px 4px #ffc83d";
+      ranking.style.border = "2px solid #ffc83d";
     }, 100);
     return ["😃", "😒", "😐", "😑", "😐", "😄", "😧", "😒", "😄", "😃", "😑", "😧"].sort(function() { return 0.5 - Math.random() });
   }
@@ -129,12 +132,14 @@ function definirDificuldade(dificuldade) {
       gameDif.innerText = "Difícil";
       gameDif.style.color = "tomato";
       gameDif.style.textShadow = "0px 0px 4px tomato";
+      ranking.style.border = "2px solid tomato";
     }, 100);
     return ["👨‍👨‍👦️", "👨‍👨‍👦‍👦", "👨‍👨‍👧", "👨‍👨‍👧‍👦", "👨‍👨‍👧", "👨‍👨‍👧‍👧", "👨‍👩‍👦‍👦", "👨‍👨‍👦‍👦", "👨‍👨‍👧‍👧", "👨‍👨‍👦️", "👨‍👨‍👧‍👦", "👨‍👩‍👦‍👦"].sort(function() { return 0.5 - Math.random() });
   }
 }
 
 function newGame(emojis) {
+  msgRank.style.display = "none";
   changeDif.style.pointerEvents = "none";
   if (container.classList.contains('difChange')) {
     clearInterval(decrem);
@@ -183,7 +188,6 @@ function newGame(emojis) {
 }
 
 function preencherItems(emojis) {
-  body.style.backgroundColor = "#5441b0";
   display.style.display = "flex";
 
   const items = [];
@@ -231,7 +235,7 @@ function preencherItems(emojis) {
     decrem = setInterval(setime2, 1000);
     changeDif.style.pointerEvents = "auto";
     addEvent();
-
+    body.style.background = "linear-gradient(0deg, rgba(133,112,233,1) 0%, rgba(68,53,141,1) 100%)";
   }, 180 * items.length);
 }
 
