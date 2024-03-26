@@ -192,10 +192,14 @@ span.emoji{
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle, rgba(68,53,141,1) 10%, rgba(255,200,61,1) 100%);
+  background: radial-gradient(circle, rgba(255,183,0,1) 40%, rgba(37,36,36,1) 100%);
   border-radius: 50%;
-  border: 1px solid #fff;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.msg-rank:hover{
+  box-shadow: 0px 0px 40px -5px rgba(255,183,0,0.7);
 }
 
 .msg-inicial{
@@ -280,6 +284,27 @@ span.emoji{
 
 .swal-modal{
   background: #5441b0;
+}
+
+.swal-modal.swal-ranking{
+  background: #fff;
+}
+
+.swal-modal.swal-ranking .swal-title{
+  color: #333;
+}
+
+.swal-ranking table{
+  width: 100%;
+}
+
+.swal-ranking table th{
+  padding: 15px 0;
+  border-bottom: 1px solid #c7c7c7;
+}
+
+.swal-ranking table td{
+  padding: 15px 0px;
 }
 
 .swal-title{

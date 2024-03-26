@@ -34,6 +34,8 @@ let infoJogador = {
 /***************/
 
 btnNew.addEventListener("click", cadastrarJogador);
+msgRank.addEventListener("click", mostrarRanking);
+ranking.addEventListener("click", mostrarRanking);
 changeDif.addEventListener("click", mudarDificuldade);
 
 function cadastrarJogador() {
@@ -62,6 +64,49 @@ function solicitarNome() {
       mostrarDificuldades();
     }
   });
+}
+
+function mostrarRanking(){
+  swal({
+    title: "Ranking",
+    className: "swal-ranking",
+    content: {
+      element: "table",
+      attributes: {
+        innerHTML: `
+          <tr>
+            <th>Nome</th>
+            <th>Level</th>
+            <th>Toques</th>
+            <th>Tempo</th>
+          </tr>
+        `,
+      }
+    }
+  });
+  criarLinhasRanking();
+}
+
+function criarLinhasRanking(){
+  const swalRanking = document.querySelector(".swal-ranking table");
+  for(let i = 0; i < localStorage.length; i++) {
+    const tr = document.createElement("tr");
+    let key = localStorage.key(i);
+    if(key == "dificuldade") continue;
+    const td = document.createElement("td");
+    td.innerHTML = key;
+    tr.appendChild(td);
+
+    let dadosJogador = localStorage.getItem(key);
+    dadosJogador = JSON.parse(dadosJogador);
+    
+    for(dados in dadosJogador){
+      const td = document.createElement('td');
+      td.innerHTML = dadosJogador[dados];
+      tr.appendChild(td);
+    }
+    swalRanking.appendChild(tr);
+  }
 }
 
 function mudarDificuldade() {
@@ -235,7 +280,7 @@ function preencherItems(emojis) {
     decrem = setInterval(setime2, 1000);
     changeDif.style.pointerEvents = "auto";
     addEvent();
-    body.style.background = "linear-gradient(0deg, rgba(133,112,233,1) 0%, rgba(68,53,141,1) 100%)";
+    body.style.background = "linear-gradient(0deg, rgba(143,124,240,1) 0%, rgba(52,40,113,1) 100%)";
   }, 180 * items.length);
 }
 
