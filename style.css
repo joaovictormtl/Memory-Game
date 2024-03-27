@@ -192,7 +192,7 @@ span.emoji{
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle, rgba(255,183,0,1) 40%, rgba(37,36,36,1) 100%);
+  background: radial-gradient(circle, rgba(63,94,251,0.37) 0%, rgba(255,183,0,1) 100%);
   border-radius: 50%;
   cursor: pointer;
   transition: 0.3s;
