@@ -88,7 +88,7 @@ function mostrarRanking(){
 }
 
 function criarLinhasRanking(){
-  const swalRanking = document.querySelector(".swal-ranking table");
+  const trList = [];
   for(let i = 0; i < localStorage.length; i++) {
     const tr = document.createElement("tr");
     let key = localStorage.key(i);
@@ -99,14 +99,50 @@ function criarLinhasRanking(){
 
     let dadosJogador = localStorage.getItem(key);
     dadosJogador = JSON.parse(dadosJogador);
-    
+
     for(dados in dadosJogador){
       const td = document.createElement('td');
       td.innerHTML = dadosJogador[dados];
       tr.appendChild(td);
     }
-    swalRanking.appendChild(tr);
+
+    for(let i = 0; i < tr.children.length; i++){
+      if(i == 0){
+        tr.children[i].classList.add("table-nome");
+      }
+      else if (i == 1){
+        tr.children[i].classList.add("table-level");
+      }
+      else if (i == 2){
+        tr.children[i].classList.add("table-toques");
+      }
+      else {
+        tr.children[i].classList.add("table-tempo");
+      }
+    }
+    trList.push(tr);
   }
+  organizarRanking(trList);
+}
+
+function organizarRanking(trList){
+  const swalRanking = document.querySelector(".swal-ranking table");
+  trList.sort((a, b) =>{
+    let toquesA = parseInt(a.cells[2].innerHTML);
+    let tempoA = parseInt(a.cells[3].innerHTML);
+    
+    let toquesB = parseInt(b.cells[2].innerHTML);
+    let tempoB = parseInt(b.cells[3].innerHTML)
+    
+    let scoreA = -toquesA + tempoA;
+    let scoreB = -toquesB + tempoB;
+
+    return scoreB - scoreA;
+  });
+
+  trList.forEach(tr => {
+    swalRanking.appendChild(tr);
+  })
 }
 
 function mudarDificuldade() {
